@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Greeshma &amp; Shravan</title>
+  <meta name="description" content="Wedding of Greeshma and Shravan, Wednesday 25 November 2026, Kudroli, Mangalore.">
+  <meta name="theme-color" content="#1f070b">
+  <meta property="og:title" content="Greeshma &amp; Shravan · Shubha Vivaha">
+  <meta property="og:description" content="Wednesday, 25 November 2026 · Muhurtham 9:50 a.m. · Sri Gokarnanatha Kshethra, Kudroli, Mangalore">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Marcellus+SC&family=Pinyon+Script&family=Tiro+Kannada&display=swap">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add('js', 'locked')</script>
+</head>
+<body>
+  <canvas id="petals" aria-hidden="true"></canvas>
+
+  <div id="gate">
+    <div class="door l" aria-hidden="true"></div>
+    <div class="door r" aria-hidden="true"></div>
+    <button class="seal" id="openBtn" type="button" aria-label="Open the wedding invitation of Greeshma and Shravan">
+      <span class="om" aria-hidden="true">ಓಂ</span>
+      <span class="kn">ಶುಭ ವಿವಾಹ</span>
+      <span class="nm">Greeshma<span>&amp;</span>Shravan</span>
+      <span class="dt">WED · 25 NOV 2026</span>
+      <span class="cta">TAP TO OPEN</span>
+    </button>
+  </div>
+
+  <button id="sound" type="button" aria-pressed="true" aria-label="Music" hidden>
+    <svg class="on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12"/></svg>
+    <svg class="off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M4 9v6h4l5 4V5L8 9H4z"/><path d="M17 9l5 6M22 9l-5 6"/></svg>
+  </button>
+
+  <main>
+    <section class="hero">
+      <div class="toran" id="toran" aria-hidden="true"></div>
+      <svg class="bell l" viewBox="0 0 40 80" aria-hidden="true"><line x1="20" y1="0" x2="20" y2="26" stroke="#d6a441" stroke-width="2"/><path d="M20 26c-9 0-12 9-12 20 0 8-4 12-6 14h36c-2-2-6-6-6-14 0-11-3-20-12-20z" fill="#d6a441" stroke="#8a5a17" stroke-width="1.5"/><circle cx="20" cy="66" r="4.5" fill="#8a5a17"/></svg>
+      <svg class="bell r" viewBox="0 0 40 80" aria-hidden="true"><line x1="20" y1="0" x2="20" y2="26" stroke="#d6a441" stroke-width="2"/><path d="M20 26c-9 0-12 9-12 20 0 8-4 12-6 14h36c-2-2-6-6-6-14 0-11-3-20-12-20z" fill="#d6a441" stroke="#8a5a17" stroke-width="1.5"/><circle cx="20" cy="66" r="4.5" fill="#8a5a17"/></svg>
+      <div class="wrap">
+        <div class="invocation">
+          <span>|| Shree Mahalingeshwara Prasanna ||</span>
+          <span>|| Shree Vishnumoorthi Prasanna ||</span>
+        </div>
+        <div class="mandala-box">
+          <svg class="mandala" id="mandalaA" viewBox="-200 -200 400 400" aria-hidden="true"></svg>
+          <svg class="mandala b" id="mandalaB" viewBox="-200 -200 400 400" aria-hidden="true"></svg>
+          <div class="names">
+            <div class="kn-line">ಶುಭ ವಿವಾಹ</div>
+            <h1 class="gold-text">Greeshma<span class="amp">&amp;</span>Shravan</h1>
+            <div class="when">WEDNESDAY · 25 NOVEMBER 2026</div>
+            <p class="lede">With joy in our hearts, we invite you and your family to bless our wedding.</p>
+            <div class="divider" aria-hidden="true"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2c1.6 3.4 4.6 5 8 5-2.5 2-3.5 5-3 8-2.4-1-4-.3-5 3-1-3.3-2.6-4-5-3 .5-3-.5-6-3-8 3.4 0 6.4-1.6 8-5z"/></svg></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="blessings reveal">
+      <div class="wrap">
+        <div class="eyebrow">In the presence and with the blessings of</div>
+        <div class="people">
+          <div class="person"><small>Bride's family</small>Smt. Surekha &amp; Sri Chidanand Poojary Thodla</div>
+          <div class="person"><small>Groom's family</small>Sri Srinivas Kuloor</div>
+        </div>
+        <div class="lamps" aria-hidden="true">
+          <svg class="diya l" viewBox="0 0 80 90"><circle class="glow" cx="40" cy="30" r="26" fill="#f39a1e" opacity=".22"/><path class="flame" d="M40 8c6 10 9 16 9 22a9 9 0 0 1-18 0c0-6 3-12 9-22z" fill="#ffcf5a"/><path class="flame" d="M40 20c3 5 4 8 4 11a4 4 0 0 1-8 0c0-3 1-6 4-11z" fill="#fff6d6"/><path d="M8 52h64c-2 16-16 26-32 26S10 68 8 52z" fill="#c1702a" stroke="#d6a441" stroke-width="2"/><path d="M14 52c8 6 44 6 52 0" fill="none" stroke="#8a3d12" stroke-width="2"/><rect x="34" y="78" width="12" height="6" rx="2" fill="#a85a20"/></svg>
+          <svg class="diya r" viewBox="0 0 80 90"><circle class="glow" cx="40" cy="30" r="26" fill="#f39a1e" opacity=".22"/><path class="flame" d="M40 8c6 10 9 16 9 22a9 9 0 0 1-18 0c0-6 3-12 9-22z" fill="#ffcf5a"/><path class="flame" d="M40 20c3 5 4 8 4 11a4 4 0 0 1-8 0c0-3 1-6 4-11z" fill="#fff6d6"/><path d="M8 52h64c-2 16-16 26-32 26S10 68 8 52z" fill="#c1702a" stroke="#d6a441" stroke-width="2"/><path d="M14 52c8 6 44 6 52 0" fill="none" stroke="#8a3d12" stroke-width="2"/><rect x="34" y="78" width="12" height="6" rx="2" fill="#a85a20"/></svg>
+        </div>
+      </div>
+    </section>
+
+    <section class="muhurtham reveal">
+      <div class="wrap">
+        <div class="eyebrow">Save the date</div>
+        <h2>The Auspicious Hour</h2>
+        <div class="panchanga">
+          <div class="date-row">
+            <div class="side">WEDNESDAY</div>
+            <div class="day">25</div>
+            <div class="side">NOVEMBER<br>2026</div>
+          </div>
+          <div class="muh">
+            <span class="kn-line">ಶುಭ ಮುಹೂರ್ತ</span>
+            <span class="time">9:50 a.m.</span>
+            <span class="lagna">Dhanu Lagnam</span>
+          </div>
+        </div>
+        <div class="countdown" id="countdown" aria-live="off">
+          <div class="cd"><b id="cdD">--</b><span>DAYS</span></div>
+          <div class="cd"><b id="cdH">--</b><span>HOURS</span></div>
+          <div class="cd"><b id="cdM">--</b><span>MINUTES</span></div>
+          <div class="cd"><b id="cdS">--</b><span>SECONDS</span></div>
+        </div>
+        <p class="cd-done" id="cdDone" hidden>The muhurtham has arrived. Thank you for your blessings.</p>
+      </div>
+    </section>
+
+    <section class="venue reveal">
+      <div class="wrap">
+        <div class="eyebrow">The venue</div>
+        <div class="hall">Jaya C. Suvarna Kalyana Mantapa</div>
+        <div class="place">Sri Gokarnanatha Kshethra, Kudroli, Mangalore</div>
+        <div class="actions">
+          <a class="btn primary" href="https://maps.app.goo.gl/SPCPene5PYdfRgtG9" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s7-6.2 7-12a7 7 0 0 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>
+            Open in Maps
+          </a>
+          <a class="btn ghost" id="calLink" href="#" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+            Add to Calendar
+          </a>
+        </div>
+        <div class="qr-card">
+          <div id="qr" role="img" aria-label="QR code linking to the venue on Google Maps"></div>
+          <p>SCAN FOR DIRECTIONS</p>
+        </div>
+      </div>
+      <svg class="coast" id="coast" viewBox="0 0 1000 260" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
+    </section>
+
+    <section class="closing reveal">
+      <div class="wrap">
+        <p>Your presence and blessings will make our day complete.</p>
+        <div class="sig gold-text">Greeshma &amp; Shravan</div>
+        <div class="kn-line">ಧನ್ಯವಾದಗಳು</div>
+      </div>
+    </section>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" integrity="sha384-3zSEDfvllQohrq0PHL1fOXJuC/jSOO34H46t6UQfobFOmxE5BpjjaIJY5F2/bMnU" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="script.js"></script>
+</body>
+</html>
