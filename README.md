@@ -10,7 +10,7 @@ Jaya C. Suvarna Kalyana Mantapa, Sri Gokarnanatha Kshethra, Kudroli, Mangalore
 ## Features
 
 - Temple doors that swing open to reveal the invitation
-- Temple bells and a tanpura drone, generated with the Web Audio API (mute toggle included)
+- Temple bells and a soft bansuri melody in raga Mohanam over a warm drone, generated with the Web Audio API (mute toggle included)
 - Falling jasmine, marigold and rose petals; tap anywhere for more
 - Marigold toran, swinging bells, rotating rangoli mandalas and flickering diyas
 - Live countdown to the muhurtham (India Standard Time)

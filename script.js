@@ -187,8 +187,8 @@
     if (!e.target.closest('a,button')) burst(e.clientX, e.clientY, 10);
   });
 
-  /* ---------- sound: temple bells + tanpura drone (synthesised) ---------- */
-  let ac, master, droneTimer;
+  /* ---------- sound: temple bells + bansuri melody in raga Mohanam (synthesised) ---------- */
+  let ac, master, out;
   const bell = (when, f, vol) => {
     [[1, 1], [2.01, .5], [2.76, .35], [5.4, .18], [8.93, .08]].forEach(([m, a]) => {
       const o = ac.createOscillator(), g = ac.createGain();
@@ -196,25 +196,80 @@
       g.gain.setValueAtTime(0, when);
       g.gain.linearRampToValueAtTime(vol * a, when + .005);
       g.gain.exponentialRampToValueAtTime(.0001, when + 4.5 / Math.sqrt(m));
-      o.connect(g).connect(master); o.start(when); o.stop(when + 5);
+      o.connect(g).connect(out); o.start(when); o.stop(when + 5);
     });
   };
-  const pluck = (when, f) => {
-    const o = ac.createOscillator(), lp = ac.createBiquadFilter(), g = ac.createGain();
-    o.type = 'sawtooth'; o.frequency.value = f;
-    lp.type = 'lowpass'; lp.frequency.value = 900; lp.Q.value = 6;
-    lp.frequency.setValueAtTime(1600, when); lp.frequency.exponentialRampToValueAtTime(500, when + 3);
-    g.gain.setValueAtTime(0, when);
-    g.gain.linearRampToValueAtTime(.07, when + .03);
-    g.gain.exponentialRampToValueAtTime(.0001, when + 3.6);
-    o.connect(lp).connect(g).connect(master); o.start(when); o.stop(when + 3.8);
+  const reverb = seconds => {
+    const len = ac.sampleRate * seconds, buf = ac.createBuffer(2, len, ac.sampleRate);
+    for (let c = 0; c < 2; c++) {
+      const d = buf.getChannelData(c);
+      for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.5);
+    }
+    const conv = ac.createConvolver();
+    conv.buffer = buf;
+    return conv;
   };
-  const SA = 138.59, NOTES = [SA * .75, SA, SA, SA / 2];
-  const startDrone = () => {
-    let i = 0, next = ac.currentTime + 1.2;
-    droneTimer = setInterval(() => {
-      while (next < ac.currentTime + .5) { pluck(next, NOTES[i++ % 4]); next += i % 4 === 0 ? 1.4 : .95; }
-    }, 200);
+  const startPad = () => {
+    const lp = ac.createBiquadFilter(), g = ac.createGain(), lfo = ac.createOscillator(), depth = ac.createGain();
+    lp.type = 'lowpass'; lp.frequency.value = 700;
+    g.gain.value = .05;
+    lfo.frequency.value = .08; depth.gain.value = .02;
+    lfo.connect(depth).connect(g.gain); lfo.start();
+    [[SA / 2, 'triangle'], [SA / 2 * 1.003, 'sine'], [SA * .75, 'sine'], [SA, 'sine']].forEach(([f, type]) => {
+      const o = ac.createOscillator();
+      o.type = type; o.frequency.value = f;
+      o.connect(lp); o.start();
+    });
+    lp.connect(g).connect(out);
+  };
+  let prevF = 0;
+  const flute = (when, f, dur) => {
+    const o = ac.createOscillator(), o2 = ac.createOscillator(), lp = ac.createBiquadFilter(), g = ac.createGain();
+    const vib = ac.createOscillator(), vibDepth = ac.createGain();
+    o.type = 'sine'; o2.type = 'triangle';
+    [o, o2].forEach(osc => {
+      osc.frequency.setValueAtTime(prevF || f, when);
+      osc.frequency.exponentialRampToValueAtTime(f, when + .09);
+    });
+    o2.detune.value = 1200;
+    vib.frequency.value = 5; vibDepth.gain.setValueAtTime(0, when);
+    vibDepth.gain.linearRampToValueAtTime(f * .007, when + Math.min(dur, .6));
+    vib.connect(vibDepth); vibDepth.connect(o.frequency); vibDepth.connect(o2.frequency);
+    lp.type = 'lowpass'; lp.frequency.value = 2400;
+    const o2g = ac.createGain(); o2g.gain.value = .12;
+    g.gain.setValueAtTime(0, when);
+    g.gain.linearRampToValueAtTime(.11, when + .18);
+    g.gain.setTargetAtTime(.08, when + .18, .4);
+    g.gain.setTargetAtTime(0, when + dur, .18);
+    o.connect(lp); o2.connect(o2g).connect(lp); lp.connect(g).connect(out);
+    [o, o2, vib].forEach(n => { n.start(when); n.stop(when + dur + 1.2); });
+    prevF = f;
+  };
+  const SA = 277.18;
+  const SCALE = { P_: 3 / 4, D_: 5 / 6, S: 1, R: 9 / 8, G: 5 / 4, P: 3 / 2, D: 5 / 3, S_: 2 };
+  const PHRASES = [
+    'G2 P1 D1 P2 G1 R1 S4',
+    'S1 R1 G2 P2 G1 R1 S1 D_1 S4',
+    'P2 D1 S_3 D1 P1 G2 P4',
+    'G1 R1 S1 D_1 P_2 D_1 S5'
+  ].map(p => p.split(' ').map(n => [SCALE[n.slice(0, -1)] * SA, +n.slice(-1)]));
+  const BEAT = .62;
+  const startMusic = () => {
+    startPad();
+    let phrase = 0, note = 0, next = ac.currentTime + 2.5;
+    setInterval(() => {
+      while (next < ac.currentTime + 1) {
+        const [f, beats] = PHRASES[phrase][note];
+        flute(next, f, beats * BEAT * .95);
+        next += beats * BEAT;
+        if (++note === PHRASES[phrase].length) {
+          note = 0; prevF = 0;
+          phrase = (phrase + 1) % PHRASES.length;
+          if (phrase === 0) bell(next + BEAT, 1318.5, .04);
+          next += BEAT * 2;
+        }
+      }
+    }, 150);
   };
   const soundBtn = document.getElementById('sound');
   soundBtn.addEventListener('click', () => {
@@ -230,11 +285,15 @@
     if (gate.classList.contains('open')) return;
     try {
       ac = new (window.AudioContext || window.webkitAudioContext)();
-      master = ac.createGain(); master.gain.value = .5; master.connect(ac.destination);
+      master = ac.createGain(); master.connect(ac.destination);
+      out = ac.createGain();
+      const wet = ac.createGain(); wet.gain.value = .45;
+      out.connect(master); out.connect(reverb(3.5)).connect(wet).connect(master);
       ac.resume();
       const t = ac.currentTime + .05;
-      bell(t, 880, .22); bell(t + .55, 1174.7, .16); bell(t + 1.1, 659.3, .2);
-      startDrone();
+      master.gain.setValueAtTime(.7, t);
+      bell(t, 880, .12); bell(t + .7, 1174.7, .08); bell(t + 1.4, 659.3, .1);
+      startMusic();
       soundBtn.hidden = false;
     } catch (e) { /* audio is optional */ }
     gate.classList.add('open');
